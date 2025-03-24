@@ -4,7 +4,7 @@ class MyApp extends StatelessWidget {
 const MyApp({super.key});
 @override
 Widget build(BuildContext context) {
-const appTitle = 'Log In';
+const appTitle = 'Sign Up Now!';
 return MaterialApp(
 title: appTitle,
 home: Scaffold(
@@ -52,9 +52,31 @@ return 'Please enter some text';
 return null;
 },
 ),
+TextFormField( //email
+// decoration to add hint
+decoration: const InputDecoration(hintText: '  Email'),
+// The validator receives the text that the user has entered.
+validator: (value) {
+if (value == null || value.isEmpty) {
+return 'Please enter some text';
+}
+return null;
+},
+),
 TextFormField( // password
 // decoration to add hint
 decoration: const InputDecoration(hintText: '  Password'),
+// The validator receives the text that the user has entered.
+validator: (value) {
+if (value == null || value.isEmpty) {
+return 'Please enter some text';
+}
+return null;
+},
+),
+TextFormField(  // Date of Birth
+// decoration to add hint
+decoration: const InputDecoration(hintText: '  Date of Birth: MM/YY'),
 // The validator receives the text that the user has entered.
 validator: (value) {
 if (value == null || value.isEmpty) {
@@ -76,7 +98,7 @@ const SnackBar(content: Text('Processing Data')),
 );
 }
 },
-child: const Text('Log In'),
+child: const Text('Submit'),
 ),
 ),
 ],
