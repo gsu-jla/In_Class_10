@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
 
 void main() => runApp(const MyAppLogin());
 
@@ -11,7 +10,7 @@ class MyAppLogin extends StatelessWidget {
     const appTitle = 'Log In';
     return MaterialApp(
       title: appTitle,
-      home: const LoginScreen(), // Changed to navigate to LoginScreen instead of Scaffold directly
+      home: const LoginScreen(),
     );
   }
 }
@@ -22,7 +21,7 @@ class LoginScreen extends StatefulWidget {
 
   @override
   LoginScreenState createState() {
-    return LoginScreenState(); // Correct state class name
+    return LoginScreenState();
   }
 }
 
@@ -34,7 +33,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( // Added Scaffold to provide a Material widget ancestor
+    return Scaffold(
       appBar: AppBar(title: const Text('Log In')), // Added AppBar for a consistent UI
       body: Padding(
         padding: const EdgeInsets.all(16.0), // Added padding for better spacing
@@ -68,11 +67,17 @@ class LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
+                      // Display a snackbar while processing the login.
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Verifying...')),
+                        const SnackBar(content: Text('Login Successful! Redirecting...')),
                       );
+                      // NEW: Redirect to HomeScreen after successful login
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomeScreen()), // Replaces blank screen
+                        );
+                      });
                     }
                   },
                   child: const Text('Log In'),
@@ -82,6 +87,19 @@ class LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+// NEW: Dummy HomeScreen to replace blank screen after login
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Home')),
+      body: const Center(child: Text('Welcome to the Home Screen!')),
     );
   }
 }

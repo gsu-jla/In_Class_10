@@ -36,9 +36,6 @@ class MyCustomForm extends StatefulWidget {
 class MyCustomFormState extends State<MyCustomForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -50,9 +47,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField( // Username
-            // Decoration to add hint
             decoration: const InputDecoration(hintText: '  Username'),
-            // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -61,9 +56,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
           ),
           TextFormField( // Email
-            // Decoration to add hint
             decoration: const InputDecoration(hintText: '  Email'),
-            // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -72,9 +65,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
           ),
           TextFormField( // Password
-            // Decoration to add hint
             decoration: const InputDecoration(hintText: '  Password'),
-            // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -83,9 +74,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
           ),
           TextFormField( // Date of Birth
-            // Decoration to add hint
             decoration: const InputDecoration(hintText: '  Date of Birth: MM/YY'),
-            // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -97,11 +86,16 @@ class MyCustomFormState extends State<MyCustomForm> {
             onPressed: () {
               // Validate returns true if the form is valid, or false otherwise.
               if (_formKey.currentState!.validate()) {
-                // If the form is valid, display a snackbar. In the real world,
-                // you'd often call a server or save the information in a database.
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Processing Data...')),
+                  const SnackBar(content: Text('Account Created! Redirecting to Login...')),
                 );
+                // NEW: Delay for 2 seconds before redirecting to Login Screen
+                Future.delayed(const Duration(seconds: 2), () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  );
+                });
               }
             },
             child: const Text('Submit'),
@@ -110,7 +104,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
               onPressed: () {
-                // To navigate to login page
+                // Navigates to login page when the user already has an account.
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginScreen()),
