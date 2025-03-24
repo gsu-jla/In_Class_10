@@ -43,7 +43,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
 children: [
 TextFormField(
 // decoration to add hint
-decoration: const InputDecoration(hintText: 'Enter your email'),
+decoration: const InputDecoration(hintText: 'Username'),
 // The validator receives the text that the user has entered.
 validator: (value) {
 if (value == null || value.isEmpty) {
@@ -52,9 +52,31 @@ return 'Please enter some text';
 return null;
 },
 ),
-TextFormField(
+TextFormField( //email
 // decoration to add hint
-decoration: const InputDecoration(hintText: 'Enter your password'),
+decoration: const InputDecoration(hintText: 'Email'),
+// The validator receives the text that the user has entered.
+validator: (value) {
+if (value == null || value.isEmpty) {
+return 'Please enter some text';
+}
+return null;
+},
+),
+TextFormField( // password
+// decoration to add hint
+decoration: const InputDecoration(hintText: 'Password'),
+// The validator receives the text that the user has entered.
+validator: (value) {
+if (value == null || value.isEmpty) {
+return 'Please enter some text';
+}
+return null;
+},
+),
+TextFormField(  // Date of Birth
+// decoration to add hint
+decoration: const InputDecoration(hintText: 'Date of Birth: MM/YY'),
 // The validator receives the text that the user has entered.
 validator: (value) {
 if (value == null || value.isEmpty) {
